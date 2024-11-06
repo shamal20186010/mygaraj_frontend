@@ -25,6 +25,11 @@ export class DashbordComponent {
 
     })
   }
+  public productTemp: any = {}
+  viewProduct(product: any) {
+    console.log(product);
+    this.productTemp = product;
+  }
 
 
 }

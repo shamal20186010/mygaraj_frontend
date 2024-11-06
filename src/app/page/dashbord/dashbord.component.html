@@ -86,7 +86,8 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
-                                    data-bs-target="#seePriviewModel">See Preview</button>
+                                    data-bs-target="#seePriviewModel" (click)="viewProduct(product)">See
+                                    Preview</button>
                             </div>
                             <small class="text-body-secondary">9 mins</small>
                         </div>
@@ -98,18 +99,51 @@
 </div>
 
 <div class="modal" tabindex="-1" id="seePriviewModel">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Modal title</h5>
+                <h5 class="modal-title">{{productTemp.prName}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <p>Modal body text goes here.</p>
+            <div class="product-container">
+                <!-- <mat-card class="product-card"> -->
+                <!-- Product Images -->
+                <div class="image-section">
+                    <img src="1.png" alt="Product Image" class="main-image" />
+                    <div class="thumbnail-images">
+                        <img src="1.png" alt="Thumbnail" />
+                        <!-- <img src="assets/thumbnail1.jpg" alt="Thumbnail" *ngFor="let img of thumbnails" /> -->
+                    </div>
+                </div>
+
+                <!-- Product Details -->
+                <div class="details-section">
+                    <h3 class="deal-text">Welcome deal</h3>
+                    <h2 class="price">LKR : {{productTemp.prPrice}}<span class="original-price">LKR :{{productTemp.prPrice}}</span> 50% off</h2>
+                    <p class="subtext">{{productTemp.prDescription}}</p>
+
+                    <!-- Ratings and Sales Info -->
+                    <div class="ratings-section">
+                        <span class="rating">★ 4.4</span> <span>12094 Reviews | 10,000+ sold</span>
+                    </div>
+
+                    <!-- Product Options -->
+                    <br>
+                    <label>Qty : </label>
+                    <input type="number" min="1" max="100" value="1" />
+                    <!-- Add to Cart -->
+                    <div class="cart-section">
+
+
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Add to Cart</button>
+                        <button type="button" class="btn btn-primary">Buy Now</button>
+                    </div>
+                </div>
+                <!-- </mat-card> -->
             </div>
+
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+
             </div>
         </div>
     </div>

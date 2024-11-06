@@ -1,0 +1,116 @@
+<section class="py-5 text-center container">
+
+
+    <div id="carouselExampleDark" class="carousel carousel-dark slide">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active" data-bs-interval="100">
+                <img src="1.png" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block text-light">
+                    <h1 class="card-title">Mygaraj.lk</h1>
+                    <p class="lead">MOST POPULAR WITH USERS<br> Buy the best spare parts at mygaraj.lk
+                        visit the web page.</p>
+                </div>
+            </div>
+            <div class="carousel-item" data-bs-interval="100">
+                <img src="1.png" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block text-light">
+                    <h1 class="card-title">Mygaraj.lk</h1>
+                    <p class="lead">MOST POPULAR WITH USERS<br> Buy the best spare parts at mygaraj.lk
+                        visit the web page.</p>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="1.png" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block text-light">
+                    <h1 class="card-title">Mygaraj.lk</h1>
+                    <p class="lead">MOST POPULAR WITH USERS<br> Buy the best spare parts at mygaraj.lk
+                        visit the web page.</p>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+    <!-- <div class="card text-bg-dark">
+        <img src="..." class="card-img" alt="...">
+        <div class="card-img-overlay mt-5">
+          <h1 class="card-title">Mygaraj.lk</h1>
+          <p class="lead">MOST POPULAR WITH USERS<br> Buy the best spare parts at mygaraj.lk
+            visit the web page.</p>
+        </div>
+      </div> -->
+
+
+
+    <!-- <img src="1.png" class="img-fluid w-25 h-25" alt="...">
+    <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+            <h1 class="fw-light">Mygaraj.lk</h1>
+            <p class="lead">MOST POPULAR WITH USERS<br> Buy the best spare parts at mygaraj.lk
+                visit the web page.
+            </p>
+        </div>
+    </div> -->
+</section>
+
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+            <div class="col" *ngFor="let product of productList; index as i">
+                <div class="card shadow-sm">
+                    <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="1.png" role="img"
+                        aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <title>Placeholder</title>
+
+                    <div class="card-body">
+                        <h4 class="card-title">{{product.prName}}</h4>
+                        <h5 class="card-title">RS: {{product.prPrice}}</h5>
+                        <p class="card-text">{{product.prDescription}}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#seePriviewModel">See Preview</button>
+                            </div>
+                            <small class="text-body-secondary">9 mins</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" id="seePriviewModel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

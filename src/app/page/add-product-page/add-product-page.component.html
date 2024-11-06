@@ -1,0 +1,63 @@
+<div class="page-header p-2">
+    <h1>Add Product</h1>
+</div>
+
+<ul class="nav nav-tabs nav-fill" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#" routerLink="add-product" role="tab" aria-controls="page"
+            aria-selected="true">Add Products</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#" routerLink="/manage-product" role="tab" aria-controls="page"
+            aria-selected="false">Manage Products</a>
+    </li>
+</ul>
+
+
+<div class="container mt-3">
+    <div class="form-signin w-50 m-auto">
+        <div class="mb-2">
+            <label class="form-label">Product name</label>
+            <input type="text" class="form-control" [(ngModel)]="product.prName">
+        </div>
+        <div class="mb-2">
+            <label class="form-label">Product description</label>
+            <textarea class="form-control" [(ngModel)]="product.prDescription" rows="1"></textarea>
+        </div>
+        <div class="mb-2">
+            <label class="form-label">Product qty</label>
+            <input type="number" class="form-control" [(ngModel)]="product.prQty">
+        </div>
+        <div class="mb-2">
+            <label class="form-label">Product Category</label>
+            <select class="form-select" [(ngModel)]="product.prCategory">
+                <option value="engine">Engine</option>
+                <option value="light">Light</option>
+                <option value="wheel">Wheel</option>
+            </select>
+        </div>
+        <div class="mb-2">
+            <label class="form-label">Price</label>
+            <input type="number" class="form-control" [(ngModel)]="product.prPrice">
+        </div>
+        <div class="mb-2">
+            <label for="formFile" class="form-label">Choose Image</label>
+            <input class="form-control" type="file" id="formFile">
+          </div>
+        <button class="btn btn-primary w-100 py-2" type="submit" (click)="addProduct()">Add product</button>
+    </div>
+</div>
+
+
+
+<!-- 
+<input type="text" placeholder="Product name" [(ngModel)]="product.prName"> <br>
+<input type="text" placeholder="product description" [(ngModel)]="product.prDescription"> <br>
+<input type="number" placeholder="Product qty" [(ngModel)]="product.prQty"> <br>
+<input type="text" placeholder="Product category" [(ngModel)]="product.prCategory"> <br>
+<input type="number" placeholder="Product price" [(ngModel)]="product.prPrice"> <br>
+<input type="button" value="Add product" (click)="addProduct()"> -->
+
+<h1>{{product.pr_name}}</h1>
+<h1>{{product.pr_description}}</h1>
+<h1>{{product.pr_qty}}</h1>

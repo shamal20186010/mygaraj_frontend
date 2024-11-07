@@ -4,6 +4,7 @@ import { ManageProductPageComponent } from './page/manage-product-page/manage-pr
 import { DashbordComponent } from './page/dashbord/dashbord.component';
 import { RegisterPageComponent } from './page/register-page/register-page.component';
 import { LoginPageComponent } from './page/login-page/login-page.component';
+import { ProfileComponent } from './page/profile/profile.component';
 
 export const routes: Routes = [
     {
@@ -25,5 +26,9 @@ export const routes: Routes = [
     {
         path: "register",
         component: RegisterPageComponent
+    },
+    {
+        path: "profile",
+        component: ProfileComponent
     }
 ];

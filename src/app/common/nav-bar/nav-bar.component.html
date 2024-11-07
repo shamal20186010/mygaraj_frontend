@@ -1,40 +1,81 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark m-1">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Mygaraj.lk</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <form class="d-flex w-25" role="search"  style="margin-left: 40%;">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 5%;">
-          <li class="nav-item m-2">
-            <a class="nav-link active" aria-current="page" href="#" routerLink="">Home</a>
-          </li>
-          <li class="nav-item m-2">
-            <a class="nav-link active" aria-current="page" href="#" routerLink="add-product">Cart+</a>
-          </li>
-          <li class="nav-item m-2">
-            <a class="nav-link active" aria-current="page" href="#" routerLink="login">Login/Register</a>
-          </li>
-          <li class="nav-item dropdown m-2">
-            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Admin Panel
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#"routerLink="add-product">Product Management</a></li>
-              <li><a class="dropdown-item" href="#">Order Management</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Log Out</a></li>
-            </ul>
-          </li>
-          <!-- <li class="nav-item">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Mygaraj.lk</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <form class="d-flex w-25" role="search" style="margin-left: 40%;">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 5%;">
+        <li class="nav-item m-2">
+          <a class="nav-link active" aria-current="page" href="#" routerLink="">Home</a>
+        </li>
+        <li class="nav-item m-2">
+          <a class="nav-link active" aria-current="page" href="#" routerLink="add-product">Cart+</a>
+        </li>
+        <li class="nav-item m-2" *ngIf="!loggedIn && !loggedInAdmin">
+          <a class="nav-link active" aria-current="page" href="#" routerLink="login">Login/Register</a>
+        </li>
+        <li class="nav-item m-2">
+          <a class="nav-link active" aria-current="page" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">Profile</a>
+        </li>
+        <li class="nav-item m-2" *ngIf="loggedIn && !loggedInAdmin">
+          <a class="nav-link active" aria-current="page" href="#" routerLink="login" (click)="logout()">Logout</a>
+        </li>
+        <li class="nav-item dropdown m-2" *ngIf="loggedInAdmin">
+          <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            Admin Panel
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#" routerLink="add-product">Product Management</a></li>
+            <li><a class="dropdown-item" href="#">Order Management</a></li>
+            <li><a class="dropdown-item" href="#" routerLink="profile">Profile</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#" (click)="logoutAdmin()">Log Out</a></li>
+          </ul>
+        </li>
+        <!-- <li class="nav-item">
             <a class="nav-link disabled" aria-disabled="true">Disabled</a>
           </li> -->
-        </ul>
-        
+      </ul>
+
+    </div>
+  </div>
+
+  <!-- profile.component.html -->
+<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="profileModalLabel">User Profile</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Username</label>
+          <input type="text" class="form-control" [value]="user?.username" readonly>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" [value]="user?.email" readonly>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Phone</label>
+          <input type="text" class="form-control" [value]="user?.phone" readonly>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
-  </nav>
+  </div>
+</div>
+
+</nav>

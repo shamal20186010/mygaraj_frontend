@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -10,6 +10,9 @@ export class AuthService {
   // Boolean to track if the user is logged in
   private loggedIn = new BehaviorSubject<boolean>(false);
   private loggedInAdmin = new BehaviorSubject<boolean>(false);
+
+  private userSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public user$: Observable<any> = this.userSubject.asObservable();
 
   // Observable for other components to subscribe to login state changes
   currentLoginStatus = this.loggedIn.asObservable();
@@ -22,8 +25,11 @@ export class AuthService {
     return this.loggedIn.value;
   }
 
+  private user: any = {}
+
   // Set the user as logged in
-  login(): void {
+  login(userData: any): void {
+    this.userSubject.next(userData);
     this.loggedIn.next(true);
   }
 
@@ -31,6 +37,7 @@ export class AuthService {
   logout(): void {
     this.loggedIn.next(false);
     this.router.navigate(['']);
+    this.userSubject.next(null);
   }
 
   // admin
@@ -39,22 +46,20 @@ export class AuthService {
     return this.loggedInAdmin.value;
   }
 
-  loginAdmin(): void {
+  loginAdmin(userData: any): void {
     this.loggedInAdmin.next(true);
+    this.userSubject.next(userData);
   }
 
   logoutAdmin(): void {
     this.loggedInAdmin.next(false);
     this.router.navigate(['']);
+    this.userSubject.next(null);
   }
 
-
-
-  private user = {
-    username: 'johndoe',
-    email: 'johndoe@example.com',
-    phone: '+123456789'
-  };
+  getUser() {
+    return this.userSubject.getValue();
+  }
 
   getUserProfile() {
     return this.user;

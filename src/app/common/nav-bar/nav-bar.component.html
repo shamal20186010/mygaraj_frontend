@@ -15,13 +15,15 @@
           <a class="nav-link active" aria-current="page" href="#" routerLink="">Home</a>
         </li>
         <li class="nav-item m-2">
-          <a class="nav-link active" aria-current="page" href="#" routerLink="add-product">Cart+</a>
+          <a class="nav-link active" aria-current="page" href="#" data-bs-toggle="modal"
+            data-bs-target="#cartModal">Cart+</a>
         </li>
         <li class="nav-item m-2" *ngIf="!loggedIn && !loggedInAdmin">
           <a class="nav-link active" aria-current="page" href="#" routerLink="login">Login/Register</a>
         </li>
         <li class="nav-item m-2">
-          <a class="nav-link active" aria-current="page" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">Profile</a>
+          <a class="nav-link active" aria-current="page" href="#" data-bs-toggle="modal" data-bs-target="#profileModal"
+            *ngIf="loggedIn">Profile</a>
         </li>
         <li class="nav-item m-2" *ngIf="loggedIn && !loggedInAdmin">
           <a class="nav-link active" aria-current="page" href="#" routerLink="login" (click)="logout()">Logout</a>
@@ -34,7 +36,7 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#" routerLink="add-product">Product Management</a></li>
             <li><a class="dropdown-item" href="#">Order Management</a></li>
-            <li><a class="dropdown-item" href="#" routerLink="profile">Profile</a></li>
+            <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#profileModal">Profile</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -50,32 +52,36 @@
   </div>
 
   <!-- profile.component.html -->
-<div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="profileModalLabel">User Profile</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div class="mb-3">
-          <label class="form-label">Username</label>
-          <input type="text" class="form-control" [value]="user?.username" readonly>
+  <div class="modal fade" id="profileModal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="profileModalLabel">User Profile</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="mb-3">
-          <label class="form-label">Email</label>
-          <input type="email" class="form-control" [value]="user?.email" readonly>
+        <div class="modal-body" *ngIf="userdata">
+          <div class="mb-3">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" [(ngModel)]="userdata.name" readonly>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Address</label>
+            <input type="email" class="form-control" [value]="userdata.address" readonly>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input type="email" class="form-control" [value]="userdata.username" readonly>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="text" class="form-control" [value]="userdata.password" readonly>
+          </div>
         </div>
-        <div class="mb-3">
-          <label class="form-label">Phone</label>
-          <input type="text" class="form-control" [value]="user?.phone" readonly>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
-</div>
 
 </nav>

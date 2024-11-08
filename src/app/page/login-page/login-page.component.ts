@@ -25,10 +25,7 @@ export class LoginPageComponent {
 
 
   async isLogin() {
-    console.log("click");
-
     const data = await this.http.get(`http://localhost:8080/register/login/${this.user.username}`).toPromise();
-    console.log(data);
     this.isLoginUser = data;
     this.validateUser();
   }
@@ -36,13 +33,11 @@ export class LoginPageComponent {
   validateUser() {
     if (this.isLoginUser.password === this.user.password && this.isLoginUser.username != "admin@gmail.com") {
       alert("success login...")
-      this.authService.login();
-      console.log("user");
+      this.authService.login(this.isLoginUser);
       this.router.navigate(['']);
 
     } else if (this.isLoginUser.username === "admin@gmail.com" || this.isLoginUser.password === "1234") {
-      this.authService.loginAdmin();
-      console.log("admin");
+      this.authService.loginAdmin(this.isLoginUser);
       this.router.navigate(['']);
     }
     else {

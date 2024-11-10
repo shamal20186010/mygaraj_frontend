@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class ManageOrderPageComponent {
   public orderList: any = [];
-  public selectedOrder: any = null;
+  selectedOrder: any = "";
 
   constructor(private http: HttpClient) {
     this.loadTable();

@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { AuthService } from '../../auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { CartService } from '../../cart.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -18,7 +19,7 @@ export class NavBarComponent implements OnInit {
   user: any;
   userdata: any;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService,private cartService: CartService) { }
 
   ngOnInit() {
     this.user = this.authService.getUserProfile();
@@ -39,6 +40,8 @@ export class NavBarComponent implements OnInit {
   // Call logout when user clicks logout button
   logout() {
     this.authService.logout(); // Log the user out
+    this.cartService.clearCart();
+
   }
 
   logoutAdmin() {

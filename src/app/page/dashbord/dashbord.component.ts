@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule } from '@angular/forms';
 import { CartService } from '../../cart.service';
 import { AuthService } from '../../auth.service';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-dashbord',
@@ -15,11 +16,18 @@ import { Router } from '@angular/router';
 })
 export class DashbordComponent implements OnInit {
 
+  isCheckOutVisible: boolean = false;
+  isPlaceOrderVisible: boolean = true;
+
+  userdata: any;
+
   checkoutData = {
     name: '',
     address: '',
-    paymentMethod: 'creditCard' // Default to 'creditCard'
+    paymentMethod: 'creditCard'
   };
+
+  totalAmount = 0;
 
   public productList: any = [];
 
@@ -38,6 +46,12 @@ export class DashbordComponent implements OnInit {
       this.cartItems = items;
       this.cartTotal = this.cartService.getCartTotal();
     });
+    this.authService.user$.subscribe(userData => {
+      this.userdata = userData;
+    });
+    if (this.authService.isLoggedIn()) {
+      this.isCheckOutVisible = true;
+    }
   }
 
   loadTable() {
@@ -57,9 +71,10 @@ export class DashbordComponent implements OnInit {
     if (this.authService.isLoggedIn()) {
       this.cartService.addToCart(product, quantity);
       alert(`${quantity} x ${product.prName} has been added to your cart.`);
-    }else{
-    this.router.navigate(['']);
-    alert("Please login or register...after perchese product..")
+      this.isPlaceOrderVisible = true;
+    } else {
+      this.router.navigate(['']);
+      alert("Please login or register...after perchese product..")
     }
   }
 
@@ -73,11 +88,40 @@ export class DashbordComponent implements OnInit {
   }
 
 
-  onSubmitCheckout(form: any) {
-    if (form.valid) {
-      this.cartService.checkout(this.checkoutData);
-      alert("Order placed successfully!");
-      form.reset();  // Reset the form after submission
+  Checkout() {
+    // Ensure that checkoutData has the required fields
+    if (!this.userdata.name || !this.userdata.address) {
+      alert('Please provide all necessary details (Name and Address).');
+      return;
     }
+
+    const orderData = {
+      customerName: this.userdata.name,
+      address: this.userdata.address,
+      totalAmount: this.cartService.getCartTotal(),
+      items: this.cartService.getCartItems().map(item => ({
+        productName: item.prName,
+        price: item.prPrice,  // Ensure 'prPrice' is passed if it's the correct price field
+        quantity: item.quantity
+      }))
+    };
+
+    console.log('Order Data:', orderData);  // For debugging purposes
+
+    // Place the order by calling the backend API
+    this.cartService.placeOrder(orderData).subscribe({
+      next: (response) => {
+        alert('Order placed successfully!');
+        this.cartService.clearCart();
+
+        this.isPlaceOrderVisible = false;
+      },
+      error: (error) => {
+        console.error('Error placing order:', error);
+        alert('There was an issue placing your order. Please try again later.');
+      }
+    });
   }
+
+
 }

@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-manage-order-page',
   standalone: true,
-  imports: [CommonModule,FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './manage-order-page.component.html',
   styleUrl: './manage-order-page.component.css'
 })
@@ -21,18 +21,15 @@ export class ManageOrderPageComponent {
   loadTable() {
     this.http.get("http://localhost:8080/orders/get-all-orders").subscribe(data => {
       console.log(data);
-      this.orderList=data;
+      this.orderList = data;
     })
   }
 
-
-
-  viewOrderItems(order: any){
+  viewOrderItems(order: any) {
     this.selectedOrder = order;
   }
 
-  deleteOderById(id: any){
-
+  deleteOderById(id: any) {
   }
 
 }

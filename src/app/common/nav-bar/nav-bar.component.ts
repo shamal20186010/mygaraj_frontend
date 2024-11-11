@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { AuthService } from '../../auth.service';
+import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CartService } from '../../cart.service';
+import { CartService } from '../../services/cart.service';
+import { ProductService } from '../../services/product.service';
+import { SearchService } from '../../services/search.service';
 
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [RouterLink, CommonModule,FormsModule],
+  imports: [RouterLink, CommonModule, FormsModule],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
 })
@@ -19,13 +21,15 @@ export class NavBarComponent implements OnInit {
   user: any;
   userdata: any;
 
-  constructor(private authService: AuthService,private cartService: CartService) { }
+  searchQuery: string = '';
+
+  constructor(private authService: AuthService, private cartService: CartService, private searchService: SearchService) { }
 
   ngOnInit() {
     this.user = this.authService.getUserProfile();
-    // Subscribe to login status changes
+
     this.authService.currentLoginStatus.subscribe(status => {
-      this.loggedIn = status; // Update the navbar based on login state
+      this.loggedIn = status;
     });
 
     this.authService.currentLoginStatusAdmin.subscribe(statusAdmin => {
@@ -37,9 +41,9 @@ export class NavBarComponent implements OnInit {
     });
   }
 
-  // Call logout when user clicks logout button
+
   logout() {
-    this.authService.logout(); // Log the user out
+    this.authService.logout();
     this.cartService.clearCart();
 
   }
@@ -49,5 +53,9 @@ export class NavBarComponent implements OnInit {
   }
 
 
- 
+  onSearch() {
+    this.searchService.updateSearchQuery(this.searchQuery);
+  }
+
+
 }

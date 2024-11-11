@@ -2,9 +2,11 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormsModule } from '@angular/forms';
-import { CartService } from '../../cart.service';
-import { AuthService } from '../../auth.service';
+import { CartService } from '../../services/cart.service';
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { ProductService } from '../../services/product.service';
+import { SearchService } from '../../services/search.service';
 
 
 @Component({
@@ -37,7 +39,12 @@ export class DashbordComponent implements OnInit {
   selectedProduct: any = "";
   selectedQuantity: number = 1;
 
-  constructor(private http: HttpClient, private router: Router, private cartService: CartService, private authService: AuthService, private fb: FormBuilder) {
+  products: any[] = [];
+  filteredProducts: any[] = [];
+  searchQuery: string = '';
+
+  constructor(private http: HttpClient, private router: Router, private cartService: CartService, private authService: AuthService, private fb: FormBuilder, private productService: ProductService,
+    private searchService: SearchService) {
     this.loadTable();
   }
 
@@ -52,6 +59,20 @@ export class DashbordComponent implements OnInit {
     if (this.authService.isLoggedIn()) {
       this.isCheckOutVisible = true;
     }
+    this.productService.getProducts().subscribe(
+      (data) => {
+        this.products = data;
+        this.filteredProducts = data;
+      },
+      (error) => {
+        console.error('Error fetching products:', error);
+      }
+    );
+
+    this.searchService.currentSearchQuery.subscribe(query => {
+      this.searchQuery = query;
+      this.applyFilter(query);
+    });
   }
 
   loadTable() {
@@ -80,16 +101,15 @@ export class DashbordComponent implements OnInit {
 
   checkout() {
     alert("Proceeding to checkout...");
-    // Additional checkout logic can go here
+
   }
 
   clearCart() {
-    this.cartService.clearCart();  // Reset the cart items to an empty array
+    this.cartService.clearCart();
   }
 
-
   Checkout() {
-    // Ensure that checkoutData has the required fields
+
     if (!this.userdata.name || !this.userdata.address) {
       alert('Please provide all necessary details (Name and Address).');
       return;
@@ -101,14 +121,13 @@ export class DashbordComponent implements OnInit {
       totalAmount: this.cartService.getCartTotal(),
       items: this.cartService.getCartItems().map(item => ({
         productName: item.prName,
-        price: item.prPrice,  // Ensure 'prPrice' is passed if it's the correct price field
+        price: item.prPrice,
         quantity: item.quantity
       }))
     };
 
-    console.log('Order Data:', orderData);  // For debugging purposes
+    console.log('Order Data:', orderData);
 
-    // Place the order by calling the backend API
     this.cartService.placeOrder(orderData).subscribe({
       next: (response) => {
         alert('Order placed successfully!');
@@ -123,5 +142,9 @@ export class DashbordComponent implements OnInit {
     });
   }
 
+  applyFilter(query: string) {
+    this.filteredProducts = this.productService.filterProductsByName(this.products, query);
+    console.log(this.filteredProducts);
 
+  }
 }

@@ -19,7 +19,7 @@ export class RegisterPageComponent {
     password: ""
   }
 
-  constructor(private router: Router,private http: HttpClient) { }
+  constructor(private router: Router, private http: HttpClient) { }
 
 
   public register() {

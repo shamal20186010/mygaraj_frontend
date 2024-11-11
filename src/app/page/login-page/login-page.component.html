@@ -4,11 +4,13 @@
         <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
         <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" [(ngModel)]="user.username">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
+                [(ngModel)]="user.username">
             <label for="floatingInput">Email address</label>
         </div>
         <div class="form-floating">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password" [(ngModel)]="user.password">
+            <input type="password" class="form-control" id="floatingPassword" placeholder="Password"
+                [(ngModel)]="user.password">
             <label for="floatingPassword">Password</label>
         </div>
         <div class="mt-2">
@@ -22,7 +24,8 @@
         </div>
         <button class="btn btn-primary w-100 py-2" type="submit" (click)="isLogin()">Sign in</button>
         <div class="text-center mt-3">
-            <a href="#" routerLink="/register" tabindex="-1" aria-disabled="true" class="align-items-center">Don't have an account?
+            <a href="#" routerLink="/register" tabindex="-1" aria-disabled="true" class="align-items-center">Don't have
+                an account?
                 Register</a>
         </div>
         <p class="mt-5 mb-3 text-body-secondary">&copy; Mygaraj.lk</p>

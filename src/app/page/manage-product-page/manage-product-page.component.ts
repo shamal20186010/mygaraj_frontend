@@ -21,7 +21,7 @@ export class ManageProductPageComponent {
   loadTable() {
     this.http.get("http://localhost:8080/product/getAll-product").subscribe(data => {
       console.log(data);
-      this.productList=data;
+      this.productList = data;
     })
   }
 

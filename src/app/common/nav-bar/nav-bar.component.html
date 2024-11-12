@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand m-2 p-2" href="#">Mygaraj.lk</a>
+    <a class="navbar-brand m-2 p-2" href="#" style="font-family: Georgia, 'Times New Roman', Times, serif;">Mygaraj.lk</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -13,24 +13,24 @@
       </div>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 5%;">
         <li class="nav-item m-2">
-          <a class="nav-link active" aria-current="page" href="#" routerLink="">Home</a>
+          <a class="nav-link active" aria-current="page" href="#" style="font-family: Georgia, 'Times New Roman', Times, serif;">Home</a>
         </li>
         <li class="nav-item m-2">
-          <a class="nav-link active" aria-current="page" href="#" data-bs-toggle="modal"
+          <a class="nav-link active" aria-current="page" href="#" data-bs-toggle="modal" style="font-family: 'Times New Roman', Times, serif;"
             data-bs-target="#cartModal">Cart+</a>
         </li>
         <li class="nav-item m-2" *ngIf="!loggedIn && !loggedInAdmin">
-          <a class="nav-link active" aria-current="page" href="#" routerLink="login">Login/Register</a>
+          <a class="nav-link active" aria-current="page" href="#" style="font-family: 'Times New Roman', Times, serif;" routerLink="login">Login/Register</a>
         </li>
         <li class="nav-item m-2">
-          <a class="nav-link active" aria-current="page" href="#" data-bs-toggle="modal" data-bs-target="#profileModal"
+          <a class="nav-link active" aria-current="page" href="#" data-bs-toggle="modal" data-bs-target="#profileModal" style="font-family: 'Times New Roman', Times, serif;"
             *ngIf="loggedIn">Profile</a>
         </li>
         <li class="nav-item m-2" *ngIf="loggedIn && !loggedInAdmin">
-          <a class="nav-link active" aria-current="page" href="#" routerLink="login" (click)="logout()">Logout</a>
+          <a class="nav-link active" aria-current="page" href="#" routerLink="login" style="font-family: 'Times New Roman', Times, serif;" (click)="logout()">Logout</a>
         </li>
         <li class="nav-item dropdown m-2" *ngIf="loggedInAdmin">
-          <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown"
+          <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" style="font-family: 'Times New Roman', Times, serif;"
             aria-expanded="false">
             Admin Panel
           </a>
@@ -53,7 +53,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="profileModalLabel">User Profile</h5>
+          <h5 class="modal-title" id="profileModalLabel" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">User Profile</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" *ngIf="userdata">
@@ -75,7 +75,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Close</button>
         </div>
       </div>
     </div>

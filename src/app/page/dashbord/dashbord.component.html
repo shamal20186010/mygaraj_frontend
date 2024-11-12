@@ -46,6 +46,7 @@
     </div>
 </section>
 
+<!--dashbord card-->
 <div class="album py-5 bg-body-tertiary">
     <div class="container">
 
@@ -53,17 +54,20 @@
 
             <div class="col" *ngFor="let product of filteredProducts;">
                 <div class="card shadow-sm">
-                    <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="1.png" role="img"
-                        aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false">
+                    <img class="bd-placeholder-img card-img-top" width="100%" height="225"  *ngIf="product.imageUrl"
+                    [src]="product.imageUrl" alt="Product Image" class="card-img-top" />
+
+                    <!-- <img class="bd-placeholder-img card-img-top" width="100%" height="225" *ngIf="product.image" [src]="product.image" role="img"
+                        aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"> -->
                     <title>Placeholder</title>
 
                     <div class="card-body">
-                        <h4 class="card-title">{{product.prName}}</h4>
+                        <h4 class="card-title" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">{{product.prName}}</h4>
                         <h5 class="card-title">RS: {{product.prPrice}}</h5>
                         <p class="card-text">{{product.prDescription}}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                <button type="button" class="btn btn-sm" style="background-color: dimgray; color: white; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif ; " data-bs-toggle="modal"
                                     data-bs-target="#seePriviewModel" (click)="viewProduct(product)">See
                                     Preview</button>
                             </div>
@@ -82,7 +86,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">{{selectedProduct.prName}}</h5>
+                <h5 class="modal-title" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">{{selectedProduct.prName}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="product-container">
@@ -91,7 +95,7 @@
                 <div class="image-section">
                     <img src="1.png" alt="Product Image" class="main-image" />
                     <div class="thumbnail-images">
-                        <img src="1.png" alt="Thumbnail" />
+                        <img [src]="selectedProduct.image" alt="Thumbnail" />
                         <!-- <img src="assets/thumbnail1.jpg" alt="Thumbnail" *ngFor="let img of thumbnails" /> -->
                     </div>
                 </div>
@@ -118,9 +122,12 @@
                     <div class="cart-section">
 
 
-                        <button type="button" class="btn btn-success"
+                        <button type="button" class="btn" style="background-color: goldenrod; color:white; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"
                             (click)="addToCart(selectedProduct, selectedQuantity)">Add to Cart</button>
-                        <button type="button" class="btn btn-primary">Buy Now</button>
+                            <button type="button" class="btn" *ngIf="!isLogin" style="background-color: lightblue; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"
+                            (click)="buyNow(selectedProduct, selectedQuantity)">Buy Now</button>
+                            <button type="button" class="btn" *ngIf="isLogin" data-bs-toggle="modal" data-bs-target="#checkoutModal" style="background-color: lightblue; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"
+                            (click)="buyNow(selectedProduct, selectedQuantity)">Buy Now</button>
                     </div>
                 </div>
                 <!-- </mat-card> -->
@@ -138,7 +145,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="cartModalLabel">Your Cart</h5>
+                <h5 class="modal-title" id="cartModalLabel" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Your Cart</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -158,8 +165,8 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#checkoutModal"
                     (click)="checkout()" *ngIf="isCheckOutVisible">Checkout</button>
-                <button type="button" class="btn btn-warning" (click)="clearCart()">Clear Cart</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-warning" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" (click)="clearCart()">Clear Cart</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Close</button>
             </div>
         </div>
     </div>
@@ -170,7 +177,7 @@
     <div class="modal-dialog" *ngIf="userdata">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="checkoutModalLabel">Checkout</h5>
+                <h5 class="modal-title" id="checkoutModalLabel" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Checkout</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -198,9 +205,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" (click)="Checkout()" *ngIf="isPlaceOrderVisible">Place
+                <button type="submit" class="btn btn-primary" (click)="Checkout()" *ngIf="isPlaceOrderVisible" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Place
                     Order</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Cancel</button>
             </div>
 
         </div>

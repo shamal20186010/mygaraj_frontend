@@ -31,6 +31,8 @@ export class DashbordComponent implements OnInit {
 
   totalAmount = 0;
 
+  isLogin: boolean = false;
+
   public productList: any = [];
 
   cartItems: any[] = [];
@@ -58,6 +60,7 @@ export class DashbordComponent implements OnInit {
     });
     if (this.authService.isLoggedIn()) {
       this.isCheckOutVisible = true;
+      this.isLogin = true;
     }
     this.productService.getProducts().subscribe(
       (data) => {
@@ -94,6 +97,18 @@ export class DashbordComponent implements OnInit {
       alert(`${quantity} x ${product.prName} has been added to your cart.`);
       this.isPlaceOrderVisible = true;
     } else {
+      this.router.navigate(['']);
+      alert("Please login or register...after perchese product..")
+    }
+  }
+
+  buyNow(product: any, quantity: number) {
+    if (this.authService.isLoggedIn()) {
+      this.cartService.addToCart(product, quantity);
+      this.isPlaceOrderVisible = true;
+      this.checkout();
+    }
+    else {
       this.router.navigate(['']);
       alert("Please login or register...after perchese product..")
     }

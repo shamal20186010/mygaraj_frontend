@@ -1,91 +1,102 @@
-<body>
-    <div class="page-header p-2">
-        <h1 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Manage Products</h1>
-    </div>
-    <ul class="nav nav-tabs nav-fill" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#" routerLink="/add-product" role="tab" aria-controls="projects"
-                aria-selected="true">Add Products</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#" routerLink="manage-product" role="tab"
-                aria-controls="members" aria-selected="false">Manage Products</a>
-        </li>
-    </ul>
+<div class="page-header p-2">
+    <h1
+        style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+        Manage Products</h1>
+</div>
+<ul class="nav nav-tabs nav-fill" role="tablist">
+    <li class="nav-item">
+        <a class="nav-link" data-toggle="tab" href="#" routerLink="/add-product" role="tab" aria-controls="projects"
+            aria-selected="true">Add Products</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" data-toggle="tab" href="#" routerLink="manage-product" role="tab"
+            aria-controls="members" aria-selected="false">Manage Products</a>
+    </li>
+</ul>
 
-    <div class="container mt-5 bg-dark-subtle">
-        <table class="table text-center">
-            <tr>
-                <th scope="col">Count</th>
-                <th scope="col">Pr ID</th>
-                <th scope="col">Pr Name</th>
-                <th scope="col">Pr Description</th>
-                <th scope="col">Pr QTY</th>
-                <th scope="col">Pr Category</th>
-                <th scope="col">Pr Price</th>
-                <th scope="col">Pr Delete</th>
-                <th scope="col">Pr Update</th>
-            </tr>
-            <tr *ngFor="let product of productList; index as i">
-                <td>{{i+1}}</td>
-                <td>{{product.prId}}</td>
-                <td>{{product.prName}}</td>
-                <td>{{product.prDescription}}</td>
-                <td>{{product.prQty}}</td>
-                <td>{{product.prCategory}}</td>
-                <td>{{product.prPrice}}</td>
-                <td><button class="btn btn-danger" (click)="deleteProductById(product.prId)"><i
-                            class="bi bi-trash-fill"></i></button></td>
-                <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal"
-                        (click)="updateProduct(product)"><i class="bi bi-pencil-square"></i></button></td>
-            </tr>
-        </table>
-    </div>
-    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Update Product</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="container mt-5 bg-dark-subtle">
+    <table class="table text-center">
+        <tr>
+            <th scope="col">Count</th>
+            <th scope="col">Pr ID</th>
+            <th scope="col">Pr IMG</th>
+            <th scope="col">Pr Name</th>
+            <th scope="col">Pr Description</th>
+            <th scope="col">Pr QTY</th>
+            <th scope="col">Pr Category</th>
+            <th scope="col">Pr Price</th>
+            <th scope="col">Pr Delete</th>
+            <th scope="col">Pr Update</th>
+        </tr>
+        <tr *ngFor="let product of productList; index as i">
+            <td>{{i+1}}</td>
+            <td>{{product.prId}}</td>
+            <td style="width: 10%; height: 10%;"><img [src]="'data:image/png;base64,' + product.image"
+                    style="width: 80%; height: 80%;"></td>
+            <td>{{product.prName}}</td>
+            <td>{{product.prDescription}}</td>
+            <td>{{product.prQty}}</td>
+            <td>{{product.prCategory}}</td>
+            <td>{{product.prPrice}}</td>
+            <td><button class="btn btn-danger" (click)="deleteProductById(product.prId)"><i
+                        class="bi bi-trash-fill"></i></button></td>
+            <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateModal"
+                    (click)="updateProduct(product)"><i class="bi bi-pencil-square"></i></button></td>
+        </tr>
+    </table>
+</div>
+<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel"
+                    style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+                    Update Product</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Pr ID</label>
+                    <input type="text" class="form-control" [(ngModel)]="productTemp.prId" id="recipient-name"
+                        disabled="true">
                 </div>
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Pr ID</label>
-                        <input type="text" class="form-control" [(ngModel)]="productTemp.prId" id="recipient-name"
-                            disabled="true">
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Pr Name</label>
-                        <input type="text" class="form-control" [(ngModel)]="productTemp.prName" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Pr Description</label>
-                        <textarea class="form-control" [(ngModel)]="productTemp.prDescription" id="recipient-name"
-                            rows="1"></textarea>
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Pr QTY</label>
-                        <input type="number" class="form-control" [(ngModel)]="productTemp.prQty" id="recipient-name">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Product Category</label>
-                        <select class="form-select" [(ngModel)]="productTemp.prCategory">
-                            <option value="engine">Engine</option>
-                            <option value="light">Light</option>
-                            <option value="wheel">Wheel</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Pr Price</label>
-                        <input type="number" class="form-control" [(ngModel)]="productTemp.prPrice" id="recipient-name">
-                    </div>
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Pr Name</label>
+                    <input type="text" class="form-control" [(ngModel)]="productTemp.prName" id="recipient-name">
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Close</button>
-                    <button type="button" class="btn btn-primary" (click)="saveProduct()" data-bs-dismiss="modal" style="background-color: goldenrod; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Update
-                        Product</button>
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Pr Description</label>
+                    <textarea class="form-control" [(ngModel)]="productTemp.prDescription" id="recipient-name"
+                        rows="1"></textarea>
                 </div>
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Pr QTY</label>
+                    <input type="number" class="form-control" [(ngModel)]="productTemp.prQty" id="recipient-name">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Product Category</label>
+                    <select class="form-select" [(ngModel)]="productTemp.prCategory">
+                        <option value="engine">Engine</option>
+                        <option value="light">Light</option>
+                        <option value="wheel">Wheel</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Pr Price</label>
+                    <input type="number" class="form-control" [(ngModel)]="productTemp.prPrice" id="recipient-name">
+                </div>
+                <div class="mb-3">
+                    <label for="recipient-name" class="col-form-label">Image</label>
+                    <input type="file" class="form-control" (change)="onFileSelected($event)" id="recipient-name">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                    style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Close</button>
+                <button type="button" class="btn btn-primary" (click)="saveProduct()" data-bs-dismiss="modal"
+                    style="background-color: goldenrod; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">Update
+                    Product</button>
             </div>
         </div>
     </div>
-</body>
+</div>

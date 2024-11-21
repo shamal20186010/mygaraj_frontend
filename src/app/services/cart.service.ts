@@ -41,4 +41,16 @@ export class CartService {
   placeOrder(orderData: any): Observable<any> {
     return this.http.post(this.placeOrderUrl, orderData);
   }
+
+  updateProductQuantities(): Observable<any> {
+    const updateRequests = this.getCartItems().map(item => ({
+      productId: item.prId,
+      quantity: item.quantity,
+    }));
+
+    return this.http.put('http://localhost:8080/product/updateQuantity', updateRequests, {
+      responseType: 'json',
+    });
+  }
+
 }

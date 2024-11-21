@@ -124,7 +124,6 @@ export class DashbordComponent implements OnInit {
   }
 
   Checkout() {
-
     if (!this.userdata.name || !this.userdata.address) {
       alert('Please provide all necessary details (Name and Address).');
       return;
@@ -137,23 +136,29 @@ export class DashbordComponent implements OnInit {
       items: this.cartService.getCartItems().map(item => ({
         productName: item.prName,
         price: item.prPrice,
-        quantity: item.quantity
-      }))
+        quantity: item.quantity,
+      })),
     };
 
-    console.log('Order Data:', orderData);
-
     this.cartService.placeOrder(orderData).subscribe({
-      next: (response) => {
-        alert('Order placed successfully!');
-        this.cartService.clearCart();
-
-        this.isPlaceOrderVisible = false;
+      next: () => {
+        this.cartService.updateProductQuantities().subscribe({
+          next: (response) => {
+            console.log('Update Response:', response);
+            alert('Order placed successfully and quantities updated!');
+            this.cartService.clearCart();
+            this.isPlaceOrderVisible = false;
+          },
+          error: (error) => {
+            console.error('Error updating product quantities:', error);
+            alert('Order placed, but there was an issue updating product quantities.');
+          },
+        });
       },
       error: (error) => {
         console.error('Error placing order:', error);
         alert('There was an issue placing your order. Please try again later.');
-      }
+      },
     });
   }
 

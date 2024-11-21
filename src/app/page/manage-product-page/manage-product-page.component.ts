@@ -13,16 +13,28 @@ import { RouterLink } from '@angular/router';
 })
 export class ManageProductPageComponent {
 
-  public productList: any = [];
+  productList: any[] = [];
+  productTemp: any = {};
+  selectedFile: File | null = null;
+
+  // public productList: any = [];
 
   constructor(private http: HttpClient) {
     this.loadTable();
   }
   loadTable() {
-    this.http.get("http://localhost:8080/product/getAll-product").subscribe(data => {
-      console.log(data);
-      this.productList = data;
-    })
+    this.http.get('http://localhost:8080/product/getAll-product').subscribe(
+      (response: any) => {
+        this.productList = response;
+      },
+      (error) => {
+        console.error('Failed to load products:', error);
+      }
+    );
+  }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
   }
 
   deleteProductById(prId: any) {
@@ -33,16 +45,37 @@ export class ManageProductPageComponent {
     })
 
   }
-  public productTemp: any = {}
+  
   updateProduct(product: any) {
-    console.log(product);
-    this.productTemp = product;
+    console.log("update product"+product);
+    this.productTemp = { ...product };
+    this.selectedFile = null;
 
   }
   saveProduct() {
-    this.http.put("http://localhost:8080/product/update-product", this.productTemp).subscribe(data => {
-      alert("product Updated!!!!!")
-    })
+    const formData = new FormData();
+    formData.append('prName', this.productTemp.prName);
+    formData.append('prDescription', this.productTemp.prDescription);
+    formData.append('prQty', this.productTemp.prQty.toString());
+    formData.append('prCategory', this.productTemp.prCategory);
+    formData.append('prPrice', this.productTemp.prPrice.toString());
+
+    if (this.selectedFile) {
+      formData.append('image', this.selectedFile, this.selectedFile.name);
+    }
+
+    console.log(formData);
+    
+
+    this.http.put(`http://localhost:8080/product/update-product/${this.productTemp.prId}`, formData, { responseType: 'text' }).subscribe(
+      (response) => {
+        console.log('Product updated successfully:', response);
+        this.loadTable(); // Refresh the product list
+      },
+      (error) => {
+        console.error('Failed to update product:', error);
+      }
+    );
   }
 
 }

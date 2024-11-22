@@ -4,6 +4,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { RegisterPageComponent } from '../register-page/register-page.component';
 
 @Component({
   selector: 'app-login-page',
@@ -12,7 +13,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
 })
-export class LoginPageComponent {
+export class LoginPageComponent{
 
   public isLoginUser: any = {
     username: "",
@@ -22,6 +23,8 @@ export class LoginPageComponent {
   constructor(private router: Router, private http: HttpClient, private authService: AuthService) { }
 
   public user: any = {}
+
+  successMessage: string ='';
 
 
   async isLogin() {

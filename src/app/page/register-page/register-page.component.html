@@ -1,8 +1,16 @@
 <body>
+
+    <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger">
+        {{ errorMessage }}
+    </div>
+
     <div class="container col-md-12 col-lg-4 mt-5">
-
-        <h1 class="h3 mb-3 fw-normal" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Please sign up</h1>
-
+        <h1 class="h3 mb-3 fw-normal"
+            style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+            Please sign up</h1>
         <div class="form-floating mb-2">
             <input type="text" class="form-control" id="floatingInput" placeholder="" [(ngModel)]="user.name">
             <label for="floatingInput">Name</label>
@@ -21,9 +29,9 @@
                 [(ngModel)]="user.password">
             <label for="floatingPassword">Password</label>
         </div>
-
-        <button class="btn w-100 py-2 mt-4" type="submit" style="background-color: lightblue; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;" (click)="register()">Sign in</button>
-
+        <button class="btn w-100 py-2 mt-4" type="submit"
+            style="background-color: lightblue; font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;"
+            (click)="register()">Sign in</button>
         <p class="mt-5 mb-3 text-body-secondary">&copy; Mygaraj.lk</p>
     </div>
 </body>

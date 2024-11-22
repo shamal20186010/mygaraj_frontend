@@ -130,6 +130,7 @@ export class DashbordComponent implements OnInit {
     }
 
     const orderData = {
+      userId: this.userdata.id,
       customerName: this.userdata.name,
       address: this.userdata.address,
       totalAmount: this.cartService.getCartTotal(),

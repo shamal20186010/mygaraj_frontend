@@ -12,6 +12,7 @@
                 <th scope="col">Customer Name</th>
                 <th scope="col">Address</th>
                 <th scope="col">Total</th>
+                <th scope="col">User ID</th>
                 <th scope="col">View Order Items</th>
                 <th scope="col">Delete</th>
             </tr>
@@ -21,6 +22,7 @@
                 <td>{{order.customerName}}</td>
                 <td>{{order.address}}</td>
                 <td>{{order.totalAmount}}</td>
+                <td>{{order.userId}}</td>
                 <td><button class="btn btn-primary" data-bs-toggle="modal" (click)="viewOrderItems(order)"
                         data-bs-target="#viewModal"><i class="bi bi-view-list"></i></button></td>
 
